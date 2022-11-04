@@ -3,7 +3,7 @@ import random
 import bitstring
 
 N_POP = 6
-BIT_LENGTH = 8
+BIT_LENGTH = 32
 CROSSOVER_PROB = 0.7
 MUTATION_PROB = 0.0001
 upper_bound = 3
