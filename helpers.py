@@ -14,8 +14,8 @@ def objective(x , y):
     return(((1-x)**2 * exp((-x**2) - (y+1)**2)) - ((x - x**3 - y**5) * exp(-x**2 - y**2)))
 
 #evaluate fitness
-def fitness(x, y):
-    return (objective(x, y)) ** 3
+def fitness(points):
+    return (objective(points[0], points[1])) ** 3
 
 #turn int to binary array
 def encode(x, y):
@@ -49,7 +49,7 @@ def decode(chrm):
     x = x * SENSITIVITY - upper_bound;
     y = y * SENSITIVITY - upper_bound;
 
-    return x,y
+    return (x,y)
     
 
 #TODO:

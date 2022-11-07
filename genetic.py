@@ -1,12 +1,13 @@
 import random
 import helpers
-from helpers import BIT_LENGTH, decode
+from helpers import BIT_LENGTH, decode, fitness
 N_POP = 6
+GENERATIONS = 100
 
 def ga():
 
-    soultions = []
-    s = []
+    soultions = [] # contains both x and y in 16 bit binary list
+    s = [] # used for iteration
     # Populate gen 1 random
     for _ in range(N_POP):
         for _ in range(BIT_LENGTH):
@@ -17,16 +18,17 @@ def ga():
     
 
     # Encode
-    print(soultions[0])
-    print(decode(soultions[0]))
-    # Evaluate
-    # ranked_solutions = []
-    # for s in soultions:
-    #     ranked_solutions.append(( fitness(s[0],s[1]), s))
 
-    # ranked_solutions.sort()
-    # #for r in ranked_solutions:
-        #print(r)
+    # Evaluate
+    ranked_solutions = []   # fitness value, chrm
+    for s in soultions:
+        print (decode(s), s)
+        ranked_solutions.append(( fitness(decode(s)), s))
+
+    print()
+    ranked_solutions.sort(reverse=True)
+    for r in ranked_solutions:
+        print(r)
 
     # Select Parents
 
