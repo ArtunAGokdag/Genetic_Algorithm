@@ -1,14 +1,13 @@
 from math import exp
 import random
-import bitstring
 
-N_POP = 6
-BIT_LENGTH = 32
+
+BIT_LENGTH = 16
 CROSSOVER_PROB = 0.7
 MUTATION_PROB = 0.0001
 upper_bound = 3
 lower_bound = -3
-SENSITIVITY = (upper_bound - lower_bound ) / ((2**BIT_LENGTH) - 1)
+SENSITIVITY = (upper_bound - lower_bound ) / ((2**(BIT_LENGTH//2)) - 1)
 
 #objective function
 def objective(x , y):
@@ -32,11 +31,25 @@ def encode(x, y):
     return x_b, y_b
 
 def decode(chrm):
-    
-    chrm_x = chrm[:chrm.len//2]
-    chrm_y = chrm[chrm.len//2:]
+    x_b = chrm[:BIT_LENGTH // 2]
+    y_b = chrm[BIT_LENGTH // 2:]
 
-    return chrm.int, chrm.int
+    # Convert to int
+    x,y, i = 0,0,0
+    for bit in reversed(x_b):
+        x += bit *( 2 ** i)
+        i+=1
+    
+    i = 0
+    for bit in reversed(y_b):
+        y += bit * (2 ** i)
+        i+=1
+    
+    # Map to function range
+    x = x * SENSITIVITY - upper_bound;
+    y = y * SENSITIVITY - upper_bound;
+
+    return x,y
     
 
 #TODO:
@@ -48,6 +61,4 @@ def Crossover():
     pass
 
 
-encx, ency = encode(0.323945842, -1.86000000000)
-print(encx.float, ency.float)
 
