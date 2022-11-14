@@ -51,42 +51,54 @@ def decode(chrm):
     y = y * SENSITIVITY - upper_bound;
 
     return (x,y)
-    
+
+
 
 #TODO:
 def mutate():
     pass
 
-#TODO:
-def crossover(list_chrm):
+
+def crossover(parents):
     # Cross every chrm in list with it's next adjacent
     # ONly crosses firat part (x)
+    children = []
 
-    p = random.uniform(0, 1)
-    if p <= CROSSOVER_PROB:
+    for i in range(len(parents) , 2):
 
-        # select split point (1 - 8)
-        split = random.randint(1, 8)
+        p = random.uniform(0, 1)
+        split = random.randint(1, BIT_LENGTH-1)
+        if p <= CROSSOVER_PROB:
+            x1, y1 = split_chrm(parents[i])
+            x2, y2 = split_chrm(parents[i+1])
 
-        for i in range(len(list_chrm) - 1):
-            #split x and y values
-            x1, y1 = split_chrm(list_chrm[i])
-            x2, y2 = split_chrm(list_chrm[i+1])
-
-            # Crossover x
+            # cross x
             x1[split:], x2[split:] = x2[split:], x1[split:]
 
-            # Append y parts
+            # cross y
+            y1[split:], y2[split:] = y2[split:], y1[split:]
+            
+            # join
             x1.append(y1)
+            print(x1)
+            children.append(x1)
             x2.append(y2)
-        
-        return list_chrm
-    else:
-        pass
+            print(x2)
+            children.append(x2)
 
+        else:
+            children.append(parents[i])
+            children.append(parents[i+1])
+    print(children)
+    return children
 
 def split_chrm(chrm):
     x_b = chrm[:BIT_LENGTH // 2]
     y_b = chrm[BIT_LENGTH // 2:]
 
     return x_b, y_b;
+
+parents = [[0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1], [1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1], [0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0], [0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1]]
+ch = []
+ch = crossover(parents)
+print(ch)
