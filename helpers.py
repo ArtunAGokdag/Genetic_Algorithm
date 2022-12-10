@@ -64,10 +64,12 @@ def crossover(parents):
     # ONly crosses firat part (x)
     children = []
 
-    for i in range(len(parents) , 2):
-
+    for i in range(len(parents) , 2): #TODO Enumarete
+    
+        #Get split point
         p = random.uniform(0, 1)
         split = random.randint(1, BIT_LENGTH-1)
+
         if p <= CROSSOVER_PROB:
             x1, y1 = split_chrm(parents[i])
             x2, y2 = split_chrm(parents[i+1])
@@ -86,10 +88,14 @@ def crossover(parents):
             print(x2)
             children.append(x2)
 
+        # Skip cx if probability not satisfied
+        # But still get children as is
         else:
             children.append(parents[i])
             children.append(parents[i+1])
+
     print(children)
+
     return children
 
 def split_chrm(chrm):
@@ -98,7 +104,14 @@ def split_chrm(chrm):
 
     return x_b, y_b;
 
-parents = [[0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1], [1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1], [0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0], [0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1]]
-ch = []
-ch = crossover(parents)
-print(ch)
+
+
+if __name__ == "__main__":
+    parents = [[0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1],
+               [1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1], 
+               [0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0], 
+               [0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1]]
+
+    ch = []
+    ch = crossover(parents)
+    print(ch)

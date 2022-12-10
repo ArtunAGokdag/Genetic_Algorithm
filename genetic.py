@@ -14,7 +14,7 @@ def ga():
     
 
     for _ in range(GENERATIONS):
-        # Get solution points
+        # Evaluate solution points
         ranked_solutions = []
         print("== Solution Points ==") # DEBUG
         for s in pop:
@@ -22,6 +22,7 @@ def ga():
             ranked_solutions.append((h.fitness(h.decode(s)) , s))
         
         print()
+        
         # Sort
         ranked_solutions.sort(reverse=True)
         ranked_solutions = ranked_solutions[:N_POP]
@@ -31,16 +32,29 @@ def ga():
             print(r)
 
         print()
+
         # Select parents
         parents = [ranked_solutions[i][1] for i in range(N_CHILD)]
         
+
         # Crossover
+        print("PARENTS")
+        for i in parents:
+            print(i)
+        
         children = []
         children = h.crossover(parents)
-        print("\nCHILDS\n", children)
+        print("\nCHILDREN\n")
+        for i in children:
+            print(i)
         # append children
         pop = parents + children
-        print("\nNew POP \n", pop)
-    
+        print("\nNew POP \n")
+        for i in pop:
+            print(i)
 
-ga()
+
+        # TODO: Decode chrm tho show points    
+
+if __name__ == "__main__":
+    ga()
