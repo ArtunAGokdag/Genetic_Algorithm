@@ -44,16 +44,23 @@ def ga():
         
         children = []
         children = h.crossover(parents)
+        
+        # TODO: Mutate
+        children = h.mutate(children)
+        
+        # OUTPUT
         print("\nCHILDREN\n")
         for i in children:
             print(i)
+
         # append children
         pop = parents + children
         print("\nNew POP \n")
         for i in pop:
             print(i)
 
-
+        # TODO: get best solution to plot
+        best_solution = h.decode(pop[0])
         # TODO: Decode chrm tho show points    
 
 if __name__ == "__main__":

@@ -4,8 +4,8 @@ import tests as t
 
 
 BIT_LENGTH = 16
-CROSSOVER_PROB = 1
-MUTATION_PROB = 0.0001
+CROSSOVER_PROB = 0.7
+MUTATION_PROB = 0.01
 upper_bound = 3
 lower_bound = -3
 SENSITIVITY = (upper_bound - lower_bound ) / ((2**(BIT_LENGTH//2)) - 1)
@@ -56,8 +56,21 @@ def decode(chrm):
 
 
 #TODO:
-def mutate():
-    pass
+def mutate(children):
+    p = random.uniform(0, 1)
+    
+    for child in children:
+        
+        if p > MUTATION_PROB:
+            continue
+
+        point_x = random.randint(1, ( BIT_LENGTH // 2) - 1)
+        point_y = random.randint(8, BIT_LENGTH - 1)
+
+        child[point_x] = 1 - child[point_x]
+        child[point_y] = 1 - child[point_y]
+
+    return children
 
 
 def crossover(parents):
@@ -104,6 +117,4 @@ def split_chrm(chrm):
     return x_b, y_b;
 
 
-if __name__ == "__main__":
-    t.test_crossover()
 

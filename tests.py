@@ -1,15 +1,32 @@
 import helpers as h
 
-def test_crossover():
-    parents = [[0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1],
-               [1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1], 
-               [0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0], 
-               [0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1]]
+sample = [[0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1],
+          [1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1], 
+          [0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0], 
+          [0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1]]
 
-    for p in parents:
+def test_crossover(sample):
+    
+
+    for p in sample:
         print(p)
     ch = []
-    ch = h.crossover(parents)
+    ch = h.crossover(sample)
     print()
     for c in ch:
         print(c)
+
+
+def test_mutation(sample):
+    for p in sample:
+        print(p)
+    
+    ch = []
+    ch = h.mutate(sample)
+    print()
+    for c in ch:
+        print(c)
+
+
+if __name__ == "__main__":
+    test_mutation(sample)
