@@ -1,5 +1,6 @@
 from math import exp
 import random
+import tests as t
 
 
 BIT_LENGTH = 16
@@ -64,12 +65,12 @@ def crossover(parents):
     # ONly crosses firat part (x)
     children = []
 
-    for i in range(len(parents) , 2): #TODO Enumarete
+    for i in range(0, len(parents) , 2): #TODO Enumarete
     
         #Get split point
         p = random.uniform(0, 1)
-        split = random.randint(1, BIT_LENGTH-1)
-
+        split = random.randint(1, (BIT_LENGTH // 2) - 1)
+        
         if p <= CROSSOVER_PROB:
             x1, y1 = split_chrm(parents[i])
             x2, y2 = split_chrm(parents[i+1])
@@ -81,11 +82,10 @@ def crossover(parents):
             y1[split:], y2[split:] = y2[split:], y1[split:]
             
             # join
-            x1.append(y1)
-            print(x1)
+            x1.extend(y1)
             children.append(x1)
-            x2.append(y2)
-            print(x2)
+
+            x2.extend(y2)
             children.append(x2)
 
         # Skip cx if probability not satisfied
@@ -94,7 +94,6 @@ def crossover(parents):
             children.append(parents[i])
             children.append(parents[i+1])
 
-    print(children)
 
     return children
 
@@ -105,13 +104,6 @@ def split_chrm(chrm):
     return x_b, y_b;
 
 
-
 if __name__ == "__main__":
-    parents = [[0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1],
-               [1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1], 
-               [0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0], 
-               [0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1]]
+    t.test_crossover()
 
-    ch = []
-    ch = crossover(parents)
-    print(ch)
